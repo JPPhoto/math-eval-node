@@ -1,24 +1,21 @@
 # Copyright (c) 2023 Jonathan S. Pollack (https://github.com/JPPhoto)
 
+import math
+
 from pydantic import BaseModel
-
-from invokeai.app.invocations.primitives import ImageField, ImageOutput
-
-from invokeai.app.models.image import ResourceOrigin, ImageCategory
-
-from invokeai.app.util.misc import SEED_MAX, get_random_seed
 
 from invokeai.app.invocations.baseinvocation import (
     BaseInvocation,
     BaseInvocationOutput,
     InputField,
     InvocationContext,
+    OutputField,
     invocation,
     invocation_output,
-    OutputField,
 )
-
-import math
+from invokeai.app.invocations.primitives import ImageField, ImageOutput
+from invokeai.app.models.image import ImageCategory, ResourceOrigin
+from invokeai.app.util.misc import SEED_MAX, get_random_seed
 
 
 @invocation_output("math_eval_output")
@@ -39,8 +36,12 @@ class MathEvalInvocation(BaseInvocation):
     y: float = InputField(default=0.0, description="Input y")
     z: float = InputField(default=0.0, description="Input z")
     w: float = InputField(default=0.0, description="Input w")
-    equation_a: str = InputField(default="math.sin(x)", description="A basic mathematical equation for a involving x, y, z, and w")
-    equation_b: str = InputField(default="1+(x*y)", description="A basic mathematical equation for b involving x, y, z, and w")
+    equation_a: str = InputField(
+        default="math.sin(x)", description="A basic mathematical equation for a involving x, y, z, and w"
+    )
+    equation_b: str = InputField(
+        default="1+(x*y)", description="A basic mathematical equation for b involving x, y, z, and w"
+    )
     equation_c: str = InputField(default="", description="A basic mathematical equation for c involving x, y, z, and w")
     equation_d: str = InputField(default="", description="A basic mathematical equation for d involving x, y, z, and w")
 
@@ -55,7 +56,7 @@ class MathEvalInvocation(BaseInvocation):
             my_dict["y"] = self.y
             my_dict["z"] = self.z
             my_dict["w"] = self.w
-            result = eval(equation, { '__builtins__': None }, my_dict)
+            result = eval(equation, {"__builtins__": None}, my_dict)
         return result
 
     def invoke(self, context: InvocationContext) -> MathEvalOutput:
