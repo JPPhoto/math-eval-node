@@ -2,8 +2,6 @@
 
 import math
 
-from pydantic import BaseModel
-
 from invokeai.app.invocations.baseinvocation import (
     BaseInvocation,
     BaseInvocationOutput,
@@ -13,8 +11,6 @@ from invokeai.app.invocations.baseinvocation import (
     invocation,
     invocation_output,
 )
-from invokeai.app.invocations.primitives import ImageField, ImageOutput
-from invokeai.app.util.misc import SEED_MAX, get_random_seed
 
 
 @invocation_output("math_eval_output")
