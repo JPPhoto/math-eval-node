@@ -2,14 +2,15 @@
 
 import math
 
-from invokeai.app.invocations.baseinvocation import (
+from invokeai.invocation_api import (
     BaseInvocation,
     BaseInvocationOutput,
+    InputField,
     InvocationContext,
+    OutputField,
     invocation,
     invocation_output,
 )
-from invokeai.app.invocations.fields import InputField, OutputField
 
 
 @invocation_output("math_eval_output")
@@ -22,7 +23,7 @@ class MathEvalOutput(BaseInvocationOutput):
     d: float = OutputField(description="Output d")
 
 
-@invocation("math_eval", title="MathEval", tags=["math_eval"], version="1.1.0")
+@invocation("math_eval", title="MathEval", tags=["math_eval"], version="1.1.1")
 class MathEvalInvocation(BaseInvocation):
     """Performs arbitrary user-defined calculations on x, y, z, and w variables"""
 
